@@ -1,9 +1,9 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as eks from 'aws-cdk-lib/aws-eks';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as blueprints from '@aws-quickstart/eks-blueprints';
-import * as ec2 from '@aws-quickstart/eks-blueprints/node_modules/aws-cdk-lib/aws-ec2';
-import * as eks from '@aws-quickstart/eks-blueprints/node_modules/aws-cdk-lib/aws-eks';
-import * as iam from '@aws-quickstart/eks-blueprints/node_modules/aws-cdk-lib/aws-iam';
 
 export interface EksMultiArchStackProps extends cdk.StackProps {
   clusterName: string
@@ -11,6 +11,7 @@ export interface EksMultiArchStackProps extends cdk.StackProps {
 
 export class EksMultiArchStack extends cdk.Stack {
   public deployRoleArn: string;
+  public eksBlueprint: blueprints.EksBlueprint;
 
   constructor(scope: Construct, id: string, props: EksMultiArchStackProps) {
     super(scope, id, props);
@@ -23,6 +24,7 @@ export class EksMultiArchStack extends cdk.Stack {
     ]
 
     const clusterProvider = new blueprints.GenericClusterProvider({
+      clusterName: props.clusterName,
       version: eks.KubernetesVersion.V1_26,
       managedNodeGroups: [
         {
@@ -74,7 +76,7 @@ export class EksMultiArchStack extends cdk.Stack {
     });
     this.deployRoleArn = deployRole.roleArn;
     
-    const eksCluster = blueprints.EksBlueprint.builder()
+    this.eksBlueprint = blueprints.EksBlueprint.builder()
       .account(props.env?.account)
       .region(props.env?.region)
       .clusterProvider(clusterProvider)
@@ -83,6 +85,6 @@ export class EksMultiArchStack extends cdk.Stack {
         name: 'cd-deploy-team',
         userRoleArn: deployRole.roleArn
       }))
-      .build(scope, `${id}-eksblueprints`);
+      .build(scope, `${id}-eksblueprint`);
   }
 }

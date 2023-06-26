@@ -9,6 +9,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 
 export interface MultiArchPipelineStackProps extends StackProps {
   deployRoleArn: string
+  clusterName: string
   ecrRepositoryName: string
   gitHubRepoOwner: string
   gitHubRepo: string
@@ -88,7 +89,7 @@ export class MultiArchPipelineStack extends Stack {
             new codepipeline_actions.CodeBuildAction({
               actionName: 'deploy',
               input: manifestBuildOutput,
-              project: this.constructDeployBuildProject(deployRole),
+              project: this.constructDeployBuildProject(deployRole, props.clusterName),
               outputs: [ deployOutput ]
             })
           ]
@@ -219,7 +220,7 @@ EOF`
     return buildProject;
   }
 
-  constructDeployBuildProject(deployRole: iam.IRole) {
+  constructDeployBuildProject(deployRole: iam.IRole, clusterName: string) {
     const buildProject = new codebuild.PipelineProject(this, 'deploy', {
       role: deployRole,
       buildSpec: codebuild.BuildSpec.fromObject({
@@ -232,7 +233,7 @@ EOF`
           },
           pre_build: {
             commands: [
-              `aws eks update-kubeconfig --name eks-multi-arch-stack-eksblueprints --region ap-southeast-1`,
+              `aws eks update-kubeconfig --name ${clusterName} --region ${this.region}`,
               'kubectl get nodes'
             ]
           },

@@ -53,8 +53,8 @@
     "@aws-cdk/core:includePrefixInUniqueNameGeneration": true,
     "app-config/clusterName": "demo-multi-arch-cluster",
     "app-config/ecrRepositoryName": "dotnet-core-multi-arch-app",
-    "app-config/gitHubRepoOwner": "hendryanw",
-    "app-config/gitHubRepo": "aws-eks-multi-arch-dotnet-core",
+    "app-config/gitHubRepoOwner": "aws-samples",
+    "app-config/gitHubRepo": "aws-cdk-eks-multi-arch-dotnet-core",
     "app-config/gitHubRepoBranchName": "main",
     "app-config/gitHubTokenAwsSecretsName": "github-oauth-token"
   }
