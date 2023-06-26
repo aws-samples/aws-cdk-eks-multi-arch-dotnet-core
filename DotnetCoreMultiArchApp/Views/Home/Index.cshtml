@@ -1,0 +1,17 @@
+﻿@model MultiArchApp.Models.IndexModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="row">
+  <div class="col-4 text-center">
+      <h2 class="display-6">Hello AWS Public Sector Day!</h2>
+      <p>This app is currently running on Amazon EKS Multi Arch Cluster.</p>
+      <p><b>Current node OS Architecture: </b>@Model.OSArchitecture</p>
+      <p><b>Current node OS Description: </b>@Model.OSDescription</p>
+  </div>
+  <div class="col-8">
+      <image width="800px" src="images/banner.jpeg">
+  </div>
+</div>
