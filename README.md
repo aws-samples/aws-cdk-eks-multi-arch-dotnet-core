@@ -67,6 +67,7 @@ This guide assumes you are working on your own local machine.
     - Open **AWS CloudFormation** on AWS Management Console
     - Look for a stack named **eks-multi-arch-stack-eksblueprint**
     - In the **Outputs** tab of the stack, you can find and output with key `eksmultiarchstackeksblueprintConfigCommand` that contains `aws eks update-kubeconfig` command to configure your local kubeconfig file to connect to the cluster.
+    > Alternatively, you can also find this command from the 2nd stack output of your CDK deployment.
 3. Use `kubectl get ingress -n multi-arch-app` to get the Application Load Balancer endpoint created using ALB ingress during deployment. 
 4. You can use the ALB endpoint to access the sample web application. The sample web application will print the current node CPU architecture of the pod that is serving the request which is either `X64` or `Arm64`.
 
@@ -75,7 +76,8 @@ This guide assumes you are working on your own local machine.
 You should consider deleting the CDK stacks once you no longer need it to save costs. To do that, follow these steps:
 
 1. Open your preferred command line interface such as Terminal or Command Prompt.
-2. From the top directory of the source code, go to the CDK directory: `cd cdk`
+2. From the top directory of the source code, run `kubectl delete -f k8s/app.yml` to delete the Kubernetes resources including ALB created by Ingress rule.
+2. Go to the CDK directory: `cd cdk`
 3. Run `cdk destroy --all` to delete the CDK stacks and then confirm the deletion.
 
 ---
