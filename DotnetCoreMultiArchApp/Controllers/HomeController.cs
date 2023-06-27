@@ -1,4 +1,7 @@
-﻿using System.Diagnostics;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MultiArchApp.Models;
 using System.Runtime.InteropServices;
