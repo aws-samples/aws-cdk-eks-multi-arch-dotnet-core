@@ -35,4 +35,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm install -g aws-cdk
-    - run: npm cdk synth
+    - run: cdk synth
