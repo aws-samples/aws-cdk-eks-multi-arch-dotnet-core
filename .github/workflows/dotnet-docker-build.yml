@@ -1,0 +1,20 @@
+name: dotnet-docker-build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+defaults:
+  run:
+    shell: bash
+    working-directory: DotnetCoreMultiArchApp/
+
+jobs:
+  x86-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile.x86 --tag dotnet-core-multi-arch-app:$(date +%s)
