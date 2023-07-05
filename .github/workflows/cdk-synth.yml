@@ -35,4 +35,6 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm install -g aws-cdk
-    - run: cdk synth
+    - run: cdk synth eks-multi-arch-stack
+    - run: cdk synth eks-multi-arch-stack-eksblueprint
+    - run: cdk synth multi-arch-pipeline-stack
