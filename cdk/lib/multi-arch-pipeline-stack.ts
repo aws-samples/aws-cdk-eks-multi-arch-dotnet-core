@@ -28,7 +28,8 @@ export class MultiArchPipelineStack extends Stack {
     const repository = new ecr.Repository(this, 'ecr-repo', {
       imageScanOnPush: true,
       repositoryName: props.ecrRepositoryName,
-      removalPolicy: cdk.RemovalPolicy.DESTROY
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteImages: true
     });
 
     // CI/CD Pipeline
